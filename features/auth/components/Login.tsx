@@ -8,6 +8,7 @@ import { Mail, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { ROUTES } from "@/constants/routes";
 
 function Login() {
    const [email, setEmail] = useState("");
@@ -70,7 +71,7 @@ function Login() {
             <input type="checkbox" className="form-checkbox accent-[#00BBA0]" />
             Remember Me
           </label>
-          <Link href="/forgot" className="text-blue-600 hover:underline">
+          <Link href={ROUTES.FORGOT} className="text-blue-600 hover:underline">
             Forgot Password?
           </Link>
         </div>

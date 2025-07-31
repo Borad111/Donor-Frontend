@@ -1,10 +1,12 @@
 import React from 'react'
+import AuctionInfo from '@/features/about-us/components/AuctionInfo'
+import FeaturedItems from '@/features/about-us/components/FeaturedItems'
+
+import { redirect } from 'next/navigation'
 
 const page = () => {
   return (
-    <div className='flex bg-red-500 flex-row gap-4 p-4 border rounded-lg shadow-lg bg-white'>
-     
-    </div>
+   redirect('/about-us') // Redirecting to the About Us page
   )
 }
 
