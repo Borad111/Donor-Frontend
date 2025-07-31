@@ -1,85 +1,34 @@
-import React from 'react'
+import React from "react";
 
 type Sponsor = {
-    type: 'image' | 'text'
-    src?: string
-    alt?: string
-    text?: string
-    className?: string
-}
+  type: "image" | "text";
+  src?: string;
+  alt?: string;
+  text?: string;
+  className?: string;
+};
 
-const sponsors: Sponsor[] = [
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'Star Fun',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'Castle',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'Star Emoji',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'PaymentStars',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'Apple',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'TalentGEM',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'TalentGEM',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-    {
-        type: 'image',
-        src: './test1.png',
-        alt: 'TalentGEM',
-        className: 'w-40 h-32 object-cover rounded',
-    },
-]
+const Sponsors = ({ data }: { data: any }) => {
+  return (
+    <div className="bg-[#c6e3de] flex flex-col items-center py-8">
+      <h2 className="text-2xl font-bold mb-8">Sponsors</h2>
 
-const Sponsors = () => {
-    return (
-        <div className="bg-[#c6e3de] flex flex-col items-center py-8">
-            <h2 className="text-2xl font-bold mb-8">Sponsors</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-10 w-full max-w-7xl">
-                {sponsors.map((sponsor, idx) => (
-                    <div className="flex flex-col items-center" key={idx}>
-                        {sponsor.type === 'image' ? (
-                            <img
-                                src={sponsor.src}
-                                alt={sponsor.alt}
-                                className={sponsor.className}
-                            />
-                        ) : (
-                            <span className={sponsor.className}>{sponsor.text}</span>
-                        )}
-                    </div>
-                ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 w-full max-w-7xl">
+        {data?.sponsor
+          ?.filter((sponsor: any) => sponsor.photo) // sirf unhi ko lo jinke paas photo hai
+          ?.map((sponsor: any, idx: number) => (
+            <div className="flex flex-col items-center text-center" key={idx}>
+              <img
+                src={sponsor.photo}
+                alt={sponsor.name}
+                className="w-32 h-32 object-contain mb-2"
+              />
+              <p className="font-semibold">{sponsor.name}</p>
             </div>
-        </div>
-    )
-}
+          ))}
+      </div>
+    </div>
+  );
+};
 
-export default Sponsors
+export default Sponsors;

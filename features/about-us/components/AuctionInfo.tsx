@@ -1,6 +1,8 @@
 import React from 'react'
 
-const AuctionInfo = () => {
+const AuctionInfo = ({data}) => {
+    
+
   return (
     <div className="bg-[#c6e3de] flex flex-col items-center w-auto gap-8 py-20">
      
