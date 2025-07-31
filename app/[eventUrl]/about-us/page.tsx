@@ -9,7 +9,6 @@ const page = () => {
   return (
     <div>
       <AboutUs/>
-    
     </div>
   )
 }

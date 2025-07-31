@@ -30,7 +30,8 @@ const featuredItems = [
   },
 ]
 
-const FeaturedItems = () => {
+const FeaturedItems = ({data}) => {
+  
   return (
     <div className="bg-[#c6e3dc] w-auto py-20">
       <button className="bg-lime-200 rounded-full px-6 py-2 font-medium text-black shadow mb-8">

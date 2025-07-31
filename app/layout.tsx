@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header/Header";
-import "@fontsource/poppins"
+import "@fontsource/poppins";
 import Hero from "@/features/about-us/components/Hero";
+import ReduxProvider from "@/store/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,15 +29,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header/>
+        <ReduxProvider>
+        <Header />
         <div className="pt-14">
-        <Hero />
-
+          <Hero />
         </div>
         <div className="">
           {/* Main content area */}
           {children}
         </div>
+      </ReduxProvider>
+
       </body>
     </html>
   );

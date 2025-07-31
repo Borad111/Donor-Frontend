@@ -9,10 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/constants/routes";
+import { usePathname } from "next/navigation";
+import { getEventUrl } from "@/lib/getEventUrl";
 
 function Login() {
    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const pathname = usePathname();
+    const eventUrl = getEventUrl(pathname);
   return (
    <Card className="w-full max-w-md p-6 shadow-md">
      <div className="flex justify-center mb-4">
@@ -71,7 +75,7 @@ function Login() {
             <input type="checkbox" className="form-checkbox accent-[#00BBA0]" />
             Remember Me
           </label>
-          <Link href={ROUTES.FORGOT} className="text-blue-600 hover:underline">
+          <Link href={ROUTES.FORGOT(eventUrl)} className="text-blue-600 hover:underline">
             Forgot Password?
           </Link>
         </div>
