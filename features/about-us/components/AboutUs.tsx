@@ -7,6 +7,8 @@ import Sponsors from "@/features/about-us/components/Sponsors";
 import { usePathname } from "next/navigation";
 import { getEventUrl } from "@/lib/getEventUrl";
 import { useGetMySettingQuery } from "@/api/mySetting/mySettingApi";
+import Events from "./Events";
+import LiveAuction from "./LiveAuction";
 
 function AboutUs() {
   const pathname = usePathname();
@@ -20,6 +22,8 @@ function AboutUs() {
         <FeaturedItems data={data} />
         <AuctionInfo data={data} />
       </div>
+      <LiveAuction />
+      <Events />
       <Sponsors data={data} />
     </div>
   );
