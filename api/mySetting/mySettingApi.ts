@@ -13,7 +13,8 @@ export const mySettingApi = createApi({
       getMySetting: builder.query({
         query: (eventUrl) => ({
             url: `mysetting/${eventUrl}`,
-            method: "GET"
+            method: "GET",
+            suspense: true, // Enable suspense for this query
         })
       }),
 })

@@ -7,10 +7,15 @@ import { FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from 'next/navigation';
+import { getEventUrl } from '@/lib/getEventUrl';
+import { ROUTES } from '@/constants/routes';
 
 
 function Forget() {
   const [email, setEmail] = useState("");
+  const pathname = usePathname();
+  const eventUrl = getEventUrl(pathname);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 ">
@@ -58,7 +63,7 @@ function Forget() {
           {/* Back Link */}
           <p className="text-sm text-muted-foreground">
             Back to{" "}
-            <Link href="/login" className="text-blue-600 hover:underline">
+            <Link href={ROUTES.LOGIN(eventUrl)} className="text-blue-600 hover:underline">
               Login
             </Link>
           </p>

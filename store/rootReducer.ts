@@ -1,5 +1,5 @@
 import { mySettingApi } from "@/api/mySetting/mySettingApi";
-import { featureItemApi } from "@/features/about-us/components/api/featureItemApi";
+import { featureItemApi } from "@/features/about-us/api/featureItemApi";
 import { combineReducers } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({

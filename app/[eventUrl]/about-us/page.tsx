@@ -1,16 +1,13 @@
-import AboutUs from '@/features/about-us/components/AboutUs'
-import AuctionInfo from '@/features/about-us/components/AuctionInfo'
-import FeaturedItems from '@/features/about-us/components/FeaturedItems'
-import Hero from '@/features/about-us/components/Hero'
-import Sponsors from '@/features/about-us/components/Sponsors'
-import React from 'react'
+import ItemsSkeleton from "@/components/ui/ItemsSkeleton";
+import AboutContent from "@/features/about-us/containers/AboutContent";
+import React, { Suspense } from "react";
 
 const page = () => {
   return (
-    <div>
-      <AboutUs/>
-    </div>
-  )
-}
+    <Suspense fallback={<ItemsSkeleton />}>
+      <AboutContent />
+    </Suspense>
+  );
+};
 
-export default page
+export default page;

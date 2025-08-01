@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
 import { mySettingApi } from "@/api/mySetting/mySettingApi";
-import { featureItemApi } from "@/features/about-us/components/api/featureItemApi";
+import { featureItemApi } from "@/features/about-us/api/featureItemApi";
 
 export const appStore=configureStore({
     reducer:rootReducer,

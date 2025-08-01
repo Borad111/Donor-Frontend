@@ -1,13 +1,12 @@
 import { getEventUrl } from "@/lib/getEventUrl";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { useGetEventsQuery } from "./api/featureItemApi";
+import { useGetEventsQuery } from "../api/featureItemApi";
 
-const Events = () => {
+const Events = ({ data }) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
 
-  const { data, isError, isLoading } = useGetEventsQuery(eventUrl);
   return (
     <>
       {data?.event?.length > 0 && (

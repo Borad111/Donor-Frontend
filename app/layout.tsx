@@ -5,6 +5,7 @@ import Header from "@/components/common/Header/Header";
 import "@fontsource/poppins";
 import Hero from "@/features/about-us/components/Hero";
 import ReduxProvider from "@/store/ReduxProvider";
+import Footer from "@/components/common/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,9 @@ export default function RootLayout({
         <div className="">
           {/* Main content area */}
           {children}
+        </div>
+          <div>
+          <Footer />
         </div>
       </ReduxProvider>
 

@@ -5,19 +5,14 @@ import React from "react";
 import {
   useGetFeaturedItemsQuery,
   useGetTiketsQuery,
-} from "./api/featureItemApi";
+} from "../api/featureItemApi";
 
-const AuctionInfo = () => {
+const AuctionInfo = ({ data }) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
-  const { data, isError, isLoading } = useGetTiketsQuery(eventUrl);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError || !data?.ticketSetting?.length)
-    return <div>Error loading auction info</div>;
-
-  const ticket = data.ticketSetting[0];
-  const formattedDate = new Date(ticket.ticketDate).toLocaleDateString(
+  const ticket = data?.ticketSetting[0];
+  const formattedDate = new Date(ticket?.ticketDate).toLocaleDateString(
     "en-US",
     {
       year: "numeric",
@@ -25,7 +20,7 @@ const AuctionInfo = () => {
       day: "numeric",
     }
   );
-  const formattedTime = new Date(ticket.ticketDate).toLocaleTimeString(
+  const formattedTime = new Date(ticket?.ticketDate).toLocaleTimeString(
     "en-US",
     {
       hour: "2-digit",
@@ -65,14 +60,14 @@ const AuctionInfo = () => {
         </h2>
         <div className="bg-[#4a2060] rounded-xl w-[260px] py-6 flex flex-col items-center mb-6">
           <span className="text-white text-lg font-semibold mb-2">
-            #{ticket.id}
+            #{ticket?.id}
           </span>
           <h2 className="text-white text-xl font-extrabold text-center leading-tight mb-4">
-            {ticket.eventVenueName}
+            {ticket?.eventVenueName}
           </h2>
 
           <div className="text-white text-sm text-center mb-2">
-            {ticket.venueAddress}
+            {ticket?.venueAddress}
           </div>
           <span className="text-[#f6c7e2] text-base font-medium">
             {formattedDate} | {formattedTime}

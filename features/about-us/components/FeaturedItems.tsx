@@ -2,18 +2,11 @@
 import { getEventUrl } from "@/lib/getEventUrl";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { useGetFeaturedItemsQuery } from "./api/featureItemApi";
+import { useGetFeaturedItemsQuery } from "../api/featureItemApi";
 
-const FeaturedItems = () => {
+const FeaturedItems = ({ data }) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
-
-  const { data, isError, refetch, isLoading } = useGetFeaturedItemsQuery({
-    eventUrl,
-    search: "sales",
-  });
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading featured items</div>;
 
   const featuredItems = data?.items?.slice(0, 3) || [];
   return (
@@ -31,39 +24,39 @@ const FeaturedItems = () => {
           const minutesLeft = Math.max(Math.floor(diffInMs / (1000 * 60)), 0);
 
           return (
-          <div
-            key={idx}
-            className="bg-white rounded-xl shadow-lg w-80 overflow-hidden relative mx-auto"
-          >
-            <div className="absolute top-0 left-0 bg-[#5a2b81] text-white px-[10px] py-[6px] rounded-tl-[8px] rounded-br-[8px] text-[13px] font-bold z-[2]">
-              {item.id}
-            </div>
-            <div className="bg-gray-100 flex items-center justify-center h-56 p-5">
-              <img
-                src={item.photo}
-                alt={item.imgAlt}
-                className={`${item.imgClass} cursor-pointer`}
-              />
-            </div>
-            <div className="p-6">
-              <div className="font-bold text-lg text-black">{item.name}</div>
-              <div className="text-sm text-red-500 mt-1 mb-4">
-                 {minutesLeft > 0
-            ? `${minutesLeft} min left to bid`
-            : "Bidding ended"}
+            <div
+              key={idx}
+              className="bg-white rounded-xl shadow-lg w-80 overflow-hidden relative mx-auto"
+            >
+              <div className="absolute top-0 left-0 bg-[#5a2b81] text-white px-[10px] py-[6px] rounded-tl-[8px] rounded-br-[8px] text-[13px] font-bold z-[2]">
+                {item.id}
               </div>
-              <hr />
-              <div className="bg-gray-50 rounded-lg flex items-center justify-between px-4 py-4">
-                <span className="font-bold text-xl text-black">
-                  $ {item.price}
-                </span>
-                <button className="bg-lime-400 hover:bg-lime-500 text-black font-medium rounded-full px-6 py-2 transition">
-                  Buy Now
-                </button>
+              <div className="bg-gray-100 flex items-center justify-center h-56 p-5">
+                <img
+                  src={item.photo}
+                  alt={item.imgAlt}
+                  className={`${item.imgClass} cursor-pointer`}
+                />
+              </div>
+              <div className="p-6">
+                <div className="font-bold text-lg text-black">{item.name}</div>
+                <div className="text-sm text-red-500 mt-1 mb-4">
+                  {minutesLeft > 0
+                    ? `${minutesLeft} min left to bid`
+                    : "Bidding ended"}
+                </div>
+                <hr />
+                <div className="bg-gray-50 rounded-lg flex items-center justify-between px-4 py-4">
+                  <span className="font-bold text-xl text-black">
+                    $ {item.price}
+                  </span>
+                  <button className="bg-lime-400 hover:bg-lime-500 text-black font-medium rounded-full px-6 py-2 transition">
+                    Buy Now
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          )
+          );
         })}
       </div>
     </div>
