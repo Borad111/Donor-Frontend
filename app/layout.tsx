@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header/Header";
 import "@fontsource/poppins";
-import Hero from "@/features/about-us/components/Hero";
+import Hero from "@/components/common/Hero/Hero";
 import ReduxProvider from "@/store/ReduxProvider";
 import Footer from "@/components/common/Footer/Footer";
 

@@ -6,8 +6,9 @@ import {
   useGetFeaturedItemsQuery,
   useGetTiketsQuery,
 } from "../api/featureItemApi";
+import { AboutUsDataResult } from "../types";
 
-export const useAboutUsData = () => {
+export const useAboutUsData = () : AboutUsDataResult => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
 
@@ -24,8 +25,18 @@ export const useAboutUsData = () => {
   );
 
   return {
-    isLoading,
-    isError,
+    isLoading:{
+        mySetting: mySetting.isLoading,
+        featuredItems: featuredItems.isLoading,
+        events: events.isLoading,
+        tikets: tikets.isLoading,
+    },  
+    isError:{
+        mySetting: mySetting.isError,
+        featuredItems: featuredItems.isError,
+        events: events.isError,
+        tikets: tikets.isError,
+    },
     data: {
       mySetting: mySetting.data,
       featuredItems: featuredItems.data,

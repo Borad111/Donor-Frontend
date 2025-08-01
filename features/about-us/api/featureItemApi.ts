@@ -1,5 +1,6 @@
 import config from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { FeaturedItemsResponse, EventResponse, FeaturedItemsRequest, TicketsResponse } from "../types";
 
 export const featureItemApi = createApi({
   reducerPath: "featureItemApi",
@@ -9,21 +10,22 @@ export const featureItemApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    getFeaturedItems: builder.query({
+
+    getFeaturedItems: builder.query<FeaturedItemsResponse,FeaturedItemsRequest>({
       query: ({ eventUrl, search }) => ({
         url: `/items-type/${eventUrl}/${search}`,
         method: "GET",
       }),
     }),
 
-    getEvents:builder.query({
+    getEvents:builder.query<EventResponse,string>({
       query: (eventUrl) => ({
         url: `/event/fetch/${eventUrl}`,
         method: "GET",  
       })
     }),
 
-    getTikets:builder.query({
+    getTikets:builder.query<TicketsResponse,string>({
       query: (eventUrl) => ({
         url: `/ticketSetting/${eventUrl}`,
         method: "GET",

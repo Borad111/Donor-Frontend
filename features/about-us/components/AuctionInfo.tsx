@@ -6,27 +6,40 @@ import {
   useGetFeaturedItemsQuery,
   useGetTiketsQuery,
 } from "../api/featureItemApi";
+import ItemsSkeleton from "@/components/ui/ItemsSkeleton";
+import ErrorFallback from "@/components/ui/ErrorFallback";
+import { TicketsResponse } from "../types";
 
-const AuctionInfo = ({ data }) => {
+type Props={
+  data:TicketsResponse;
+  isLoading:boolean;
+  isError:boolean;
+}
+const AuctionInfo = ({ data, isLoading, isError }:Props) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
-
+  if (isError) {
+    return <ErrorFallback />;
+  }
+  if (isLoading) {
+    return <ItemsSkeleton />;
+  }
   const ticket = data?.ticketSetting[0];
-  const formattedDate = new Date(ticket?.ticketDate).toLocaleDateString(
+  const formattedDate = ticket?.ticketDate ? new Date(ticket?.ticketDate).toLocaleDateString(
     "en-US",
     {
       year: "numeric",
       month: "short",
       day: "numeric",
     }
-  );
-  const formattedTime = new Date(ticket?.ticketDate).toLocaleTimeString(
+  ): 'Date not specified';
+  const formattedTime = ticket?.ticketDate  ? new Date(ticket?.ticketDate).toLocaleTimeString(
     "en-US",
     {
       hour: "2-digit",
       minute: "2-digit",
     }
-  );
+  ):'Date not specified';
   return (
     <div className="bg-[#c6e3de] flex flex-col items-center w-auto gap-8 py-20">
       {/* Progress Card */}

@@ -1,9 +1,23 @@
+import ErrorFallback from '@/components/ui/ErrorFallback';
+import ItemsSkeleton from '@/components/ui/ItemsSkeleton';
+import { SettingResponse } from '@/types/settingTypes';
 import React from 'react'
 
-const LiveAuction = ({ data }) => {
+type Props={
+  data:SettingResponse[];
+  isLoading:boolean;
+  isError:boolean;
+}
+const LiveAuction = ({ isError,data,isLoading }:Props) => {
+  if (!data) return null;
   const title = data?.setting?.title;
   const description = data?.setting?.description;
-
+if (isError) {
+    return <ErrorFallback/>
+  }
+  if(isLoading){
+    return <ItemsSkeleton/>
+  }
   // Agar dono na ho to null return karo — means kuch bhi render nahi hoga
   if (!title && !description) {
     return null;
