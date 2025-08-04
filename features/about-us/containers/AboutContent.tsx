@@ -34,13 +34,12 @@ function AboutContent() {
   return (
     <div>
       <div className="flex flex-col sm:flex sm:flex-col lg:flex lg:flex-row xl:flex xl:flex-row md:gap-8 justify-evenly bg-[#c6e3de]">
-          <FeaturedItems isError={isError.featuredItems} isLoading={isLoading.featuredItems} data={data.featuredItems || []} />
-          
-          <AuctionInfo isError={isError.tikets} isLoading={isLoading.tikets} data={data.tikets} />
+          <FeaturedItems isError={isError.featuredItems} isLoading={isLoading.featuredItems} data={data.featuredItems?.items || []} />
+          <AuctionInfo isError={isError.tikets} isLoading={isLoading.tikets} data={data.tikets?.ticketSetting || []} />
       </div>
-        <LiveAuction isError={isError.mySetting} isLoading={isLoading.mySetting} data={data.mySetting || []} />
-        <Events isError={isError.events} isLoading={isLoading.events} data={data.events || []} />
-        <Sponsors isError={isError.mySetting} isLoading={isLoading.mySetting} data={data.mySetting || []} />
+        <LiveAuction isError={isError.mySetting} isLoading={isLoading.mySetting} data={data.mySetting?.setting } />
+        <Events isError={isError.events} isLoading={isLoading.events} data={data.events?.event || []} />
+        <Sponsors isError={isError.mySetting} isLoading={isLoading.mySetting} data={data.mySetting?.sponsor || []} />
     </div>
   );
 }

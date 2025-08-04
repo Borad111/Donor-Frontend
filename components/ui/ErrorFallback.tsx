@@ -4,7 +4,8 @@ import React from "react";
 import { AlertTriangle } from "lucide-react"; // optional: icon
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 import { ROUTES } from "@/constants/routes";
 
 const ErrorFallback = () => {

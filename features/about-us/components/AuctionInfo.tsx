@@ -1,5 +1,6 @@
 "use client";
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 import { usePathname } from "next/navigation";
 import React from "react";
 import {
@@ -8,10 +9,10 @@ import {
 } from "../api/featureItemApi";
 import ItemsSkeleton from "@/components/ui/ItemsSkeleton";
 import ErrorFallback from "@/components/ui/ErrorFallback";
-import { TicketsResponse } from "../types";
+import { TicketSetting, TicketsResponse } from "../types";
 
 type Props={
-  data:TicketsResponse;
+  data:TicketSetting[];
   isLoading:boolean;
   isError:boolean;
 }
@@ -24,7 +25,7 @@ const AuctionInfo = ({ data, isLoading, isError }:Props) => {
   if (isLoading) {
     return <ItemsSkeleton />;
   }
-  const ticket = data?.ticketSetting[0];
+  const ticket = data[0];
   const formattedDate = ticket?.ticketDate ? new Date(ticket?.ticketDate).toLocaleDateString(
     "en-US",
     {

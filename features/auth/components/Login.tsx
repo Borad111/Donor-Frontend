@@ -10,7 +10,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/constants/routes";
 import { usePathname } from "next/navigation";
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 
 function Login() {
    const [email, setEmail] = useState("");

@@ -1,4 +1,5 @@
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useGetEventsQuery } from "../api/featureItemApi";
@@ -7,7 +8,7 @@ import ErrorFallback from "@/components/ui/ErrorFallback";
 import {  EventItem, EventResponse } from "../types";
 
 type Props={
-  data:EventResponse[];
+  data:EventItem[];
   isLoading:boolean;
   isError:boolean;
 }
@@ -23,7 +24,7 @@ if (isError) {
   }
   return (
     <>
-      {data?.length > 0 && (
+      {data.length > 0 && (
         <div className="p-4 sm:p-8 sm:px-20 md:px-32 lg:px-56 xl:px-72 2xl:px-32 bg-[#c6e3de]">
           <h2 className="text-xl mt-10 sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
             Schedule Of Events

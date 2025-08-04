@@ -1,8 +1,9 @@
 "use client"
 import React from 'react'
-import { getEventUrl } from '@/lib/getEventUrl';
 import { usePathname } from 'next/navigation';
 import { useGetMySettingQuery } from '@/api/mySetting/mySettingApi';
+import { getEventUrl } from '@/lib/utils';
+import { HeroSkeleton } from './HeroSkeleton';
 
 const Hero = () => {
   const pathname=usePathname();
@@ -11,9 +12,7 @@ const Hero = () => {
   const {data,isLoading,isError}=useGetMySettingQuery(eventUrl);
    if (isLoading) {
     return (
-      <div className="w-full py-24 flex items-center justify-center min-h-[150px]">
-        <p className="text-white text-lg">Loading...</p>
-      </div>
+     <HeroSkeleton/>
     );
   }
 

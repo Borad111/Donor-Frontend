@@ -1,11 +1,11 @@
 "use client"
 
 import React from "react";
-import { getEventUrl } from "@/lib/getEventUrl";
 import { usePathname } from "next/navigation";
 import { useGetMySettingQuery } from "@/api/mySetting/mySettingApi";
 import Image from "next/image";
-
+import { getEventUrl } from "@/lib/utils";
+  
 const Footer = () => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);

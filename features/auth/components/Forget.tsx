@@ -8,7 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from 'next/navigation';
-import { getEventUrl } from '@/lib/getEventUrl';
+import { getEventUrl } from '@/lib/utils';
+
 import { ROUTES } from '@/constants/routes';
 
 

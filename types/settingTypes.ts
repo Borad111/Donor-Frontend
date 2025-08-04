@@ -1,4 +1,4 @@
-interface ThemeSetting {
+export interface ThemeSetting {
   id: number;
   label: string;
   property: string;
@@ -9,7 +9,7 @@ interface ThemeSetting {
   updatedAt: string;
 }
 
-interface Page {
+export interface Page {
   id: number;
   title: string;
   slug: string;
@@ -23,14 +23,14 @@ interface Page {
   url: string | null;
 }
 
-interface ShowMainTab {
+export interface ShowMainTab {
   biddingTab: boolean;
   donationTab: boolean;
   salesItemTab: boolean;
   pages: Page[];
 }
 
-interface Sponsor {
+export interface Sponsor {
   id: number;
   name: string;
   photo: string | null;
@@ -53,7 +53,7 @@ interface Sponsor {
 }
 
 // Main setting type jo bahut bada hai
-interface EventSetting {
+export interface EventSetting {
   id: number;
   name: string;
   endDate: string;

@@ -1,4 +1,5 @@
 import { SettingResponse } from "@/types/settingTypes";
+import { useAboutUsData } from "./hooks/usAboutUsData";
 
 export interface EventItem {
   id: number;

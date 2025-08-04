@@ -1,17 +1,17 @@
 import ErrorFallback from '@/components/ui/ErrorFallback';
 import ItemsSkeleton from '@/components/ui/ItemsSkeleton';
-import { SettingResponse } from '@/types/settingTypes';
+import { EventSetting, SettingResponse } from '@/types/settingTypes';
 import React from 'react'
 
 type Props={
-  data:SettingResponse[];
+  data?:EventSetting;
   isLoading:boolean;
   isError:boolean;
 }
 const LiveAuction = ({ isError,data,isLoading }:Props) => {
-  if (!data) return null;
-  const title = data?.setting?.title;
-  const description = data?.setting?.description;
+  if (!data) return null
+  const title = data?.title;
+  const description = data?.description;
 if (isError) {
     return <ErrorFallback/>
   }
