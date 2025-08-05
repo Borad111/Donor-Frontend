@@ -13,9 +13,9 @@ const Footer = () => {
   const { data } = useGetMySettingQuery(eventUrl);
   console.log("Footer Data:", data);
   return (
-    <footer className="bg-[#f1f1f1] text-gray-800 px-4 py-10">
+    <footer className="bg-[#f1f1f1] text-gray-800 px-4  py-10">
       {/* Sponsor Title */}
-      <div className="text-center text-sm sm:text-base md:text-lg font-semibold mb-6">
+      <div className="text-center  text-sm sm:text-base md:text-lg font-semibold mb-6">
         {data?.setting.technologySponsorType}
       </div>
 

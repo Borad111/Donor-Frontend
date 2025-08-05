@@ -39,3 +39,10 @@ export const getTimeLeft = (end: string) => {
 
   return `${days} day(s) ${hours} hr(s) left to bid`;
 };
+
+export const formatCurrency = (amount: number | null | undefined): string => {
+    if (amount === null || amount === undefined) {
+      return "$0";
+    }
+    return `$${amount.toLocaleString()}`;
+  };

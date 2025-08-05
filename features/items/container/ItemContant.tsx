@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useItemsData } from '../hooks/useItemsData';
 import { TimeSkeleton } from '../components/TimeSkeleton';
 import { SearchSkeleton } from '../components/SearchSkeleton';
+import ItemListSkeleton from '../components/ItemListSkeleton';
 // import SearchFilter from '../components/SearchFilter';
 
   const TimeSchedule=dynamic(
@@ -17,15 +18,16 @@ import { SearchSkeleton } from '../components/SearchSkeleton';
   )
   const ItemList=dynamic(
     () => import('../components/itemList'),
-    { ssr: false, loading: () => <div className="flex justify-center"><TimeSkeleton/></div> }
+    { ssr: false, loading: () => <div className="flex justify-center"><ItemListSkeleton/></div> }
   )
 function ItemContant() {
 
   const { isLoading, isError, data } = useItemsData();
   return (
     <div className="w-[80%] mx-auto">
-      <TimeSchedule isError={isError.mySetting} data={data.mySetting?.setting} isLoading={isLoading.mySetting}/>
+      <TimeSchedule isError={isError.mySetting} moneyData={data.money} data={data.mySetting?.setting} isLoading={isLoading.mySetting}/>
       <SearchFilter/>
+
       <ItemList isError={isError.items} isLoading={isLoading.items} data={data.items?.items || []}/>
     </div>
   );
