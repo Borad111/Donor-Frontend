@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants/routes";
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";

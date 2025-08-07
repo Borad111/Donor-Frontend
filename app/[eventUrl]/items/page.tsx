@@ -1,13 +1,9 @@
+import Items from "@/features/items/components/items";
+import ItemContant from "@/features/items/container/ItemContant";
 import React from "react";
 
 function page() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[200px]">
-      <h1 className="text-5xl font-extrabold underline text-center">
-        Item Page
-      </h1>
-    </div>
-  );
+  return <ItemContant/>
 }
 
 export default page;

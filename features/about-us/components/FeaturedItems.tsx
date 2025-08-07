@@ -1,14 +1,29 @@
 "use client";
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useGetFeaturedItemsQuery } from "../api/featureItemApi";
+import ItemsSkeleton from "@/components/ui/ItemsSkeleton";
+import ErrorFallback from "@/components/ui/ErrorFallback";
+import { FeaturedItem, FeaturedItemsResponse } from "../types";
 
-const FeaturedItems = ({ data }) => {
+type Props = {
+  data: FeaturedItem[];
+  isLoading: boolean;
+  isError: boolean;
+};
+const FeaturedItems = ({ isError, data, isLoading }: Props) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
 
-  const featuredItems = data?.items?.slice(0, 3) || [];
+  if (isError) {
+    return <ErrorFallback />;
+  }
+  if (isLoading) {
+    return <ItemsSkeleton />;
+  }
+  const featuredItems = data?.slice(0, 3) || [];
   return (
     <div className="bg-[#c6e3dc] w-auto py-20">
       <button className="bg-lime-200 rounded-full px-6 py-2 font-medium text-black shadow mb-8">
@@ -32,11 +47,7 @@ const FeaturedItems = ({ data }) => {
                 {item.id}
               </div>
               <div className="bg-gray-100 flex items-center justify-center h-56 p-5">
-                <img
-                  src={item.photo}
-                  alt={item.imgAlt}
-                  className={`${item.imgClass} cursor-pointer`}
-                />
+                <img src={item.photo} className={` cursor-pointer`} />
               </div>
               <div className="p-6">
                 <div className="font-bold text-lg text-black">{item.name}</div>

@@ -1,25 +1,40 @@
-import { getEventUrl } from "@/lib/getEventUrl";
+import { getEventUrl } from '@/lib/utils';
+
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useGetEventsQuery } from "../api/featureItemApi";
+import ItemsSkeleton from "@/components/ui/ItemsSkeleton";
+import ErrorFallback from "@/components/ui/ErrorFallback";
+import {  EventItem, EventResponse } from "../types";
 
-const Events = ({ data }) => {
+type Props={
+  data:EventItem[];
+  isLoading:boolean;
+  isError:boolean;
+}
+
+const Events = ({ data,isLoading ,isError}:Props) => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
-
+if (isError) {
+    return <ErrorFallback/>
+  }
+  if (isLoading) {
+    return <ItemsSkeleton />;
+  }
   return (
     <>
-      {data?.event?.length > 0 && (
+      {data.length > 0 && (
         <div className="p-4 sm:p-8 sm:px-20 md:px-32 lg:px-56 xl:px-72 2xl:px-32 bg-[#c6e3de]">
           <h2 className="text-xl mt-10 sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
             Schedule Of Events
             <span className="block sm:inline text-gray-500 text-sm sm:text-base md:text-lg font-normal ml-0 sm:ml-2">
-              ({data?.event?.length} events)
+              ({data?.length} events)
             </span>
           </h2>
 
           <div className="space-y-4 mt-6">
-            {data.event.map((item: any) => (
+            {data.map((item: EventItem) => (
               <div
                 key={item.id}
                 className="flex flex-col sm:flex-row items-stretch sm:items-center bg-gray-50 rounded-lg overflow-hidden"
