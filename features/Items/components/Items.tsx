@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { getEventUrl } from '@/lib/getEventUrl';
 import { useGetAuctionItemsQuery } from '../api/itemsApi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Items: React.FC = () => {
   const pathname = usePathname();
@@ -183,16 +184,18 @@ const Items: React.FC = () => {
                   {item.itemId}
                 </div>
 
-                {/* Placeholder for image */}
-                <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden cursor-pointer">
-                  <Image
-                    src={item.photo}
-                    alt={item.title}
-                    width={280}
-                    height={192}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <Link href={`itemDetail/${item.id}`} className="block">
+                  {/* Placeholder for image */}
+                  <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden cursor-pointer">
+                    <Image
+                      src={item.photo}
+                      alt={item.title}
+                      width={280}
+                      height={192}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </Link>
               </div>
 
               {/* Item Details */}
@@ -201,12 +204,12 @@ const Items: React.FC = () => {
                   {item.name}
                 </h3>
                 <div className="flex justify-between items-center mt-auto">
-                    <p className="text-sm text-gray-600 mb-1">
-                      {item.isStartingBid ? 'STARTING BID:' : 'CURRENT BID:'}
-                    </p>
-                    <p className="text-xl font-bold text-gray-900">
-                      {formatCurrency(item.currentBid)}
-                    </p>
+                  <p className="text-sm text-gray-600 mb-1">
+                    {item.isStartingBid ? 'STARTING BID:' : 'CURRENT BID:'}
+                  </p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {formatCurrency(item.currentBid)}
+                  </p>
                 </div>
               </div>
             </div>
