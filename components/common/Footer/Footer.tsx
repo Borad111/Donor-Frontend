@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 import { useGetMySettingQuery } from "@/api/mySetting/mySettingApi";
 import Image from "next/image";
 import { getEventUrl } from "@/lib/utils";
+import FooterSkeleton from "./FooterSkeleton";
   
 const Footer = () => {
   const pathname = usePathname();
   const eventUrl = getEventUrl(pathname);
 
-  const { data } = useGetMySettingQuery(eventUrl);
-  console.log("Footer Data:", data);
+  const { data ,isLoading} = useGetMySettingQuery(eventUrl);
+  if(isLoading) return <FooterSkeleton/>
   return (
     <footer className="bg-[#f1f1f1] text-gray-800 px-4  py-10">
       {/* Sponsor Title */}

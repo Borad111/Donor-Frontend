@@ -6,7 +6,7 @@ export interface Item {
   auctionId: number | null;
   restriction: string | null;
   name: string;
-  itemCategoryId: number;
+  itemCategoryId: number | null;
   isFeature: number;
   isHighlightItem: number | null;
   isHidden: number;
@@ -16,9 +16,9 @@ export interface Item {
   photo2: string;
   photo3: string;
   description: string;
-  startingBid: string;
+  startingBid: number | null;
   bidRaise: string;
-  currentBid: string | null;
+  currentBid: number | null;
   buyNow: string;
   fairMarketValue: string;
   winningBidder: string | null;
@@ -31,7 +31,7 @@ export interface Item {
   isPreview: number;
   video: string | null;
   eventUrl: string;
-  auctionType: number;
+  auctionType: number | null;
   isPriceless: number | null;
   isLive: number;
   isLiveInPage: number;
@@ -56,6 +56,8 @@ export interface Item {
   transactionId: number | null;
   procurementNumber: number;
   winningBidNumber: string | null;
+  bidLabel: string;
+  displayBid: number | null;
 }
 
 export interface ItemsResponse {
@@ -69,21 +71,57 @@ export interface MoneyRaisedResponse {
   success: boolean;
 }
 
+export interface ItemCategory {
+  id: number;
+  category: string;
+  eventUrl: string;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
+
+export interface ItemCategoriesResponse {
+  message: string;
+  itemCategoriesList: ItemCategory[];
+  success: boolean;
+}
+
+export interface ItemAuctionType {
+  id: number;
+  eventUrl: string;
+  auctionType: string;
+  startDate: string | null;
+  endDate: string | null;
+  isDateSet: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface ItemAuctionTypeResponse {
+  message: string;
+  itemAuctionTypesList: ItemAuctionType[];
+  success: boolean;
+}
+
 export interface ItemsDataResult{
     isLoading: {
         items: boolean;
         mySetting: boolean;
         money: boolean;
+        category: boolean;
+        auctionType: boolean;
     },
     isError: {
         items: boolean;
         mySetting: boolean;
         money: boolean;
+        category: boolean;    
+        auctionType: boolean;
     },
     data: {
         items?: ItemsResponse;
         mySetting?: SettingResponse;
         money?: MoneyRaisedResponse;
+        category?: ItemCategoriesResponse;
+        auctionType?: ItemAuctionTypeResponse;
     }
 
 }

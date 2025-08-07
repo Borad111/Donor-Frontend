@@ -2,85 +2,98 @@ import React from "react";
 import { Item } from "../types";
 import Image from "next/image";
 import ItemListSkeleton from "./ItemListSkeleton";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getEventUrl } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+interface ItemWithBid extends Item {
+  displayBid: number;
+  bidLabel: string;
+}
 
 type Props = {
   data: Item[];
   isLoading: boolean;
   isError: boolean;
 };
-function itemList({ isError, isLoading, data }: Props) {
+
+function ItemList({ isError, isLoading, data }: Props) {
+  
   if (isLoading) {
     return <ItemListSkeleton />;
   }
-  const getValidItems = (): Item[] => {
+
+  if (isError) {
+    return <div className="text-center text-red-500 py-10">Error loading items</div>;
+  }
+
+  if (data.length === 0) {
     return (
-      data
-        ?.filter(
-          (item: Item) =>
-            item.itemId !== null && item.itemId !== undefined || item.startingBid !== null && item.currentBid !== null
-        )
-        .map((item: Item) => ({
-          ...item,
-          currentBid:
-            item.currentBid !== null && item.currentBid !== undefined
-              ? item.currentBid
-              : item.startingBid,
-          isStartingBid:
-            item.currentBid === null || item.currentBid === undefined,
-        })) || []
+      <div className="text-center py-20">
+        <h3 className="text-xl font-medium text-gray-700">No items found</h3>
+        <p className="text-gray-500 mt-2">
+          Try adjusting your search or filter criteria
+        </p>
+      </div>
     );
-  };
-  
+  }
+
   return (
-    <div className="place-content-center flex flex-wrap mb-24 justify-center gap-x-6 gap-y-10 w-full">
-      {getValidItems().map((item: Item) => (
-        <div
-          key={item.id}
-          className="bg-white mt-5 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col w-[calc(25%-20px)] min-w-[250px]" // Adjusted calculation
-        >
-          {/* Item Number Badge */}
-          <div className="relative">
-            <div className="absolute top-0 left-0  bg-purple-950 text-white px-4 py-1 rounded text-md font-medium">
-              {item.itemId}
-            </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-8">
+      {data.map((item) => {
+        const showCurrentBid = item.currentBid != null;
+        const displayBid = showCurrentBid ? item.currentBid : item.startingBid;
+        const bidLabel = showCurrentBid ? "CURRENT BID:" : "STARTING BID:";
 
-            {/* Image section */}
-            <div className="w-full aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden cursor-pointer">
-              {item?.photo ? (
-                <Image
-                  src={item.photo}
-                  alt="Photo "
-                  width={300}
-                  height={225}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
-                  No Image
+        return (
+          <div
+            key={item.id}
+            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+          >
+            <div className="relative">
+              <div className="absolute  bg-purple-950 text-white px-3 py-1 rounded-md  text-lg font-medium z-10">
+                #{item.itemId}      
+              </div>
+
+              <Link href={`itemDetail/${item.id}`} className="block">
+                <div className="w-full aspect-[4/3] bg-gray-100 overflow-hidden">
+                  {item?.photo ? (
+                    <Image
+                      src={item.photo}
+                      alt={item.name || "Auction item"}
+                      width={400}
+                      height={300}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      priority={false}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                      No Image Available
+                    </div>
+                  )}
                 </div>
-              )}
+              </Link>
             </div>
-          </div>
 
-          {/* Item Details */}
-          <div className="p-5 flex flex-col flex-1">
-            <h3 className="font-semibold text-gray-900 mb-3 text-lg line-clamp-2 min-h-[3.5rem]">
-              {item.name}
-            </h3>
-            <div className="flex justify-between items-center mt-auto">
-              <p className="text-base text-gray-600 mb-2">
-                {item.startingBid ? "STARTING BID:" : "CURRENT BID:"}
-              </p>
-              <p className="text-xl font-bold text-gray-900">
-                {formatCurrency(item.currentBid as number | null)}
-              </p>
+            <div className="p-4 flex flex-col flex-1">
+              <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">
+                {item.name}
+              </h3>
+              {/* <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
+                {item.description}
+              </p> */}
+              <div className="flex justify-between items-center mt-auto pt-2 border-t border-gray-100">
+                <span className="text-sm text-gray-600">{bidLabel}</span>
+                <span className="text-lg font-bold text-gray-900">
+                  {formatCurrency(displayBid || 0)}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
-export default itemList;
+export default ItemList;
